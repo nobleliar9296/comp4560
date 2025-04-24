@@ -62,6 +62,12 @@ project_root/
 Generate a batch of synthetic plants:
 
 ```bash
+python gen_spline.py --input output_splines   --output generated_plants   --num_plants 10
+```
+
+For more control over plant generation
+
+```bash
 python gen_spline.py   --input output_splines   --output generated_plants   --num_plants 10   --upward_bias 0.55   --drooping   --include_upward   --upward_ratio 0.5   --width 12   --height 10   --gaussian   --branch_mean 32   --branch_variance 5   --batch_size 200   --max_attempts 20
 ```
 
