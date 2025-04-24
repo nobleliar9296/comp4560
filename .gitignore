@@ -1,0 +1,37 @@
+# Ignore specific file types
+*.zip
+*.tex
+*.npy
+*.ply
+*.gz
+*.png
+*.json
+
+
+# Ignore folders containing these file types
+**/*.zip/
+**/*.tex/
+**/*.npy/
+**/*.ply/
+
+# Ignore specific data or build directories (customize as needed)
+data/
+output/
+build/
+dist/
+results/
+
+# Ignore temporary files
+*.tmp
+*~
+.DS_Store
+Thumbs.db
+
+# Python related
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints
+venv/
+env/
+ENV/
