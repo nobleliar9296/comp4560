@@ -7,7 +7,7 @@ python preprocessing.py
 
 Converting points to splines (for more info consult point_to_spline.md):
 ```bash
-python fit_splines.py \
+python point_to_spline.py \
   --input_dir ./data \
   --output_dir ./output_splines
 ```

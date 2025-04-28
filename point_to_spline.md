@@ -55,7 +55,7 @@ project_root/
 ## Usage
 
 ```bash
-python fit_splines.py \
+python point_to_splines.py \
   --input_dir ./data \
   --output_dir ./output_splines \
   --extension .npy \
