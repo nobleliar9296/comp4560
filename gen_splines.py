@@ -709,8 +709,11 @@ def generate_and_plot_plant(real_branches, template_data, upward_bias=0.3,
     id_str = f" (ID: {plant_id})" if plant_id else ""
     title = f"Generated {plant_type} Plant - {actual_branch_count} branches{id_str}"
     
-    fig, ax = plot_plant(curves, title=title, figsize=figsize)
-    
+    if args.animate:
+        fig, ax = plot_plant(curves, title=title, figsize=figsize)
+    else:
+        fig, ax = None, None
+
     return curves, fig, ax, all_branches, plant_type, actual_branch_count
 
 def generate_plant_batch(input_path, output_dir, batch_size=10, 
@@ -770,7 +773,8 @@ def generate_plant_batch(input_path, output_dir, batch_size=10,
     json_dir = os.path.join(output_dir, 'json')
     png_dir = os.path.join(output_dir, 'png')
     os.makedirs(json_dir)
-    os.makedirs(png_dir)
+    if args.animate:
+        os.makedirs(png_dir)
     
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     
@@ -809,11 +813,15 @@ def generate_plant_batch(input_path, output_dir, batch_size=10,
         with open(json_path, 'w') as f:
             json.dump(json_data, f, indent=2)
         
-        fig.savefig(png_path, dpi=300, bbox_inches='tight')
+        if args.animate:
+            fig.savefig(png_path, dpi=300, bbox_inches='tight')
+        
         
         print(f"Saved plant {i}/{batch_size} to:")
         print(f"  JSON: {json_path}")
-        print(f"  PNG: {png_path}")
+        
+        if args.animate:
+            print(f"  PNG: {png_path}")
         
         plt.close(fig)
         json_files.append(json_path)
@@ -821,7 +829,8 @@ def generate_plant_batch(input_path, output_dir, batch_size=10,
     print(f"\n=== Completed batch of {batch_size} plants ===\n")
     print(f"Output directory: {output_dir}")
     print(f"JSON files: {json_dir}")
-    print(f"PNG files: {png_dir}")
+    if args.animate:
+        print(f"PNG files: {png_dir}")
     
     return json_files
 
@@ -841,6 +850,7 @@ if __name__ == "__main__":
     parser.add_argument('--branch_variance', type=float, default=5, help='Branch count variance')
     parser.add_argument('--batch_size', type=int, default=200, help='Branches per batch')
     parser.add_argument('--max_attempts', type=int, default=20, help='Maximum generation attempts')
+    parser.add_argument('--animate', action='store_true', default=False, help='Generate plot')
     
     args = parser.parse_args()
     
